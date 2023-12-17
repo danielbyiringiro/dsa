@@ -1,35 +1,38 @@
-public class File extends TreeNode
+public class File 
 {
+    private String name;
     private String content;
 
-    // Constructor
-
-    public File(String name, String path, String content, TreeNode parent)
+    public File(String name, String content) 
     {
-        super(name, path, false, parent);
+        this.name = name;
         this.content = content;
     }
 
-    // Methods
-
-    /**
-     * Gets the content of the file.
-     * @return the content of the file
-     */
+    public String getName() 
+    {
+        return name;
+    }
 
     public String getContent()
     {
-        return this.content;
+        return content;
     }
 
-    /**
-     * Sets the content of the file.
-     * @param content the content of the file
-     */
+    public void setName(String name)
+    {
+        this.name = name;
+    }
 
     public void setContent(String content)
     {
         this.content = content;
     }
-    
+
+    public static void main(String[] args)
+    {
+        File file = new File("hello.py", "print('Hello World')\nfor i in range(5):\n    print(i)");
+        System.out.println(file.getName());
+        System.out.println(file.getContent());
+    }
 }

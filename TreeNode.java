@@ -1,178 +1,72 @@
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Represents a node in a tree data structure.
- */
-
-public class TreeNode
+public class TreeNode <T>
 {
-    private String name;
-    private TreeNode parent;
-    private boolean isDirectory;
-    private String path;
-    private List<TreeNode> children;
+    private T data;
+    private TreeNode<T> parent;
+    private List<TreeNode<T>> children;
 
-    /**
-     * Constructs a new TreeNode.
-     * @param name the name of the node
-     * @param path the path of the node
-     * @param isDirectory true if the node is a directory, false otherwise
-     */
-
-    public TreeNode(String name, String path, boolean isDirectory, TreeNode parent)
+    public TreeNode(T data, TreeNode<T> parent, Boolean isDirectory)
     {
-        this.name = name;
-        this.path = path;
-        this.isDirectory = isDirectory;
+        this.data = data;
         this.parent = parent;
-        this.children = new ArrayList<TreeNode>();
-    }
-
-    /**
-     * Gets the name of the node.
-     * @return the name of the node
-     */
-
-    public String getName()
-    {
-        return this.name;
-    }
-
-    /**
-     * Gets the parent of the node.
-     * @return the parent of the node
-     */
-
-    public TreeNode getParent()
-    {
-        return this.parent;
-    }
-
-    /**
-     * Gets the path of the node.
-     * @return the path of the node
-     */
-
-    public String getPath()
-    {
-        return this.path;
-    }
-
-    /**
-     * Gets the children of the node.
-     * @return the children of the node
-     */
-
-    public List<TreeNode> getChildren()
-    {
-        return this.children;
-    }
-
-    /**
-     * Gets the child of the node with the specified name.
-     * @param name the name of the child to get
-     * @return the child of the node with the specified name
-     */
-
-    public TreeNode getChild(String name)
-    {
-        for (TreeNode child : this.children)
+        
+        if (!isDirectory)
         {
-            if (child.getName().equals(name))
-            {
-                return child;
-            }
+            children = null;
         }
-        return null;
-    }
 
-    /**
-     * Gets the child of the node with the specified path.
-     * @param path the path of the child to get
-     * @return the child of the node with the specified path
-     */
-
-    public TreeNode getChildByPath(String path)
-    {
-        for (TreeNode child : this.children)
-        {
-            if (child.getPath().equals(path))
-            {
-                return child;
-            }
-        }
-        return null;
-    }
-   
-    /**
-     * Adds a child to the node.
-     * @param child the child to add
-     * @return true if the child was added successfully, false otherwise
-     */
-
-    public boolean addChild(TreeNode child)
-    {
-        if (this.getChild(child.getName()) != null)
-        {
-            return false;
-        }
         else
         {
-            child.parent = this;
+            children = new ArrayList<>();
+        }
+    }
+
+    // getters
+
+    public T getData()
+    {
+        return data;
+    }
+
+    public TreeNode<T> getParent()
+    {
+        return parent;
+    }
+
+    public List<TreeNode<T>> getChildren()
+    {
+        return children;
+    }
+
+    // setters
+
+    public void setData(T data)
+    {
+        this.data = data;
+    }
+
+    public void setParent(TreeNode<T> parent)
+    {
+        this.parent = parent;
+    }
+
+    public void addChild(TreeNode<T> child)
+    {
+        if(!(children == null))
+        {
             this.children.add(child);
-            return true;
-        }
-    }
-
-    /**
-     * Removes a child from the node.
-     * @param child the child to remove
-     * @return true if the child was removed successfully, false otherwise
-     */
-
-    public boolean removeChild(TreeNode child)
-    {
-        if (this.getChild(child.getName()) == null)
-        {
-            return false;
         }
         else
         {
-            child.parent = null;
-            this.children.remove(child);
-            return true;
+            System.out.println("Files cant have children");
         }
     }
 
-    /**
-     * Gets a string representation of the node.
-     * @return a string representation of the node
-     */
-
-    public String toString()
+    public static void main(String[] args)
     {
-        return this.name;
+        File file = new File("hello.py", "print('Hello World')\nfor i in range(5):\n    print(i)");
+        TreeNode<File> root = new TreeNode<>(file, null, false);
     }
-
-    /**
-     * Set path of the node.
-     * @param path the path of the node
-     */
-
-    public void setPath(String path)
-    {
-        this.path = path;
-    }
-
-    /**
-     * checks if the node is a file
-     */ 
-
-    public boolean isFile()
-    {
-        return !this.isDirectory;
-    }
-
-
 }
