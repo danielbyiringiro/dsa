@@ -64,9 +64,22 @@ public class TreeNode <T>
         }
     }
 
+    // display
+
+    public void display()
+    {
+        System.out.println(data);
+        for (TreeNode<T> node : children)
+        {
+            System.out.println("    - " + node.getData());
+        }
+    }
+
     public static void main(String[] args)
     {
         File file = new File("hello.py", "print('Hello World')\nfor i in range(5):\n    print(i)");
-        TreeNode<File> root = new TreeNode<>(file, null, false);
+        TreeNode<String> root = new TreeNode<>("root", null, true);
+        root.addChild(new TreeNode<String>("hello", root, true));
+        root.display();
     }
 }
